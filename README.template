@@ -46,9 +46,24 @@ Then you can go into the directory of the desired document and run `make`.
 If you run `make` in the root directory you will recursively transcend the 
 directory hierarchy and build everything included in the module.
 
-*To contribute*, please [fork the repository][ForkARepo], make your changes, 
-commit them and then create a [pull request][PullRequest] in the original 
-repository.
+In each directory the files are structured as follows:
 
-[ForkARepo]: https://help.github.com/articles/fork-a-repo/
-[PullRequest]: https://help.github.com/articles/using-pull-requests/
+ - content.tex contains the main content.
+ - aims.tex is an itemized list of the intended learning outcomes, as such it 
+   can be included in another document summarizing the list of intended 
+   learning outcomes. E.g.
+   ```LaTeX
+   \begin{itemize}
+     \input{aims.tex}
+   \end{itemize}
+   ```
+ - abstract.tex is an abstract of the lecture, assignment, or similar, and 
+   covers the required reading instructions, thus you can include these in 
+   a study guide containing all reading instructions for the course. E.g.
+   ```LaTeX
+   \begin{abstract}
+     \input{abstract.tex}
+   \end{abstract}
+ - <name>.bib contains the bibliography entries, thus this file can be included 
+   along with the reading instructions.
+
