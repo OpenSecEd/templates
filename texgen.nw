@@ -1,3 +1,253 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[british]{babel}
+\usepackage{authblk}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{cleveref}
+\usepackage{csquotes}
+
+\usepackage{noweb}
+% Needed to relax penalty for breaking code chunks across pages, otherwise 
+% there might be a lot of space following a code chunk.
+\def\nwendcode{\endtrivlist \endgroup}
+\let\nwdocspar=\smallbreak
+
+\usepackage[natbib,style=alphabetic,maxbibnames=99]{biblatex}
+\addbibresource{texgen.bib}
+
+\title{texgen: A command for generating file structures for \LaTeX}
+\author{Daniel Bosk}
+\affil{%
+  Department of Information Technology and Society\\
+  Mid Sweden University, SE-851\,70 Sundsvall
+}
+\affil{%
+  School of Computer Science and Communication\\
+  KTH Royal Institute of Technology, SE-100\,44 Stockholm
+}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  \dots
+\end{abstract}
+\clearpage
+\tableofcontents
+\clearpage
+
+
+\section{Introduction}
+
+When we have an idea for something we would like to quickly get started at 
+writing.
+The idea of texgen is to quickly generate the file structure needed, similarly 
+as dtxgen~\cite{dtxgen}.
+
+
+\section{Implementation overview}
+
+The texgen utility is implemented as a shell script and has the following 
+layout.
 <<texgen.sh>>=
 #!/bin/sh
+<<variables>>
+<<functions>>
+<<parse command-line arguments>>
+<<process command-line arguments>>
+<<use templates>>
 @
+
+We will use getopt(1) to parse the command-line arguments.
+If there are no command-line arguments, we will simply print the usage.
+Otherwise we let getopt(1) parse them.
+<<parse command-line arguments>>=
+if [ $# = 0 ]; then
+  echo "$0 $usage"
+  exit 2
+fi
+args=$(getopt "$options" $*)
+set -- $args
+@ The last line changes the actual arguments from what is given by the user to 
+something homogenized by getopt(1).
+
+The next step is to actually process the arguments.
+For each argument we finish processing, we will use [[shift]] to remove them.
+Thus the first unprocessed argument will always be in the variable [[1]], and 
+there will be no arguments left when we are done.
+<<process command-line arguments>>=
+while [ $# -ge 0 ]; do
+  case "$1" in
+    <<arguments handler code>>
+    --)
+      shift; break;;
+  esac
+done
+@
+
+
+\section{Using the templates}
+
+We will keep the templates in a shared directory.
+<<variables>>=
+template_dir=${TEXGEN_TEMPLATES:=/usr/local/share/texgen}
+@ Thus the command can fetch the needed templates from there.
+To use them, we will simply do the following.
+<<use templates>>=
+<<copy templates into location>>
+<<substitute values>>
+@ We will return to [[<<substitute values>>]] in \cref{DoingSubstitution}.
+
+\subsection{Controlling which templates to use}
+
+We have several templates and it might not be interesting to use all at the 
+same time.
+Thus we want to control which templates to use, i.e.\ copy into location.
+We want to use the basic TeX-files for a document --- which also has 
+corresponding slides (using beamerarticle).
+<<variables>>=
+files+=" notes.tex slides.tex"
+files+=" preamble.tex contents.tex"
+@
+
+There are also other files that we might want.
+First, there is the Makefile.
+There are two versions, one for a normal document and one for a study guide.
+We will add an option to change from the default of a normal document.
+<<variables>>=
+options+="g"
+usage+=" [-g]"
+makefile="Makefile.slides"
+@ Then we change the default if the argument is given.
+<<arguments handler code>>=
+-g)
+  makefile="Makefile.studyguide"
+  shift;;
+@
+
+Second, there are the standard files part of any repository: general 
+\enquote{read me}, information about contributions, license.
+If the generated document is part of a larger repository, then these files are 
+probably already present in the repository root.
+If not, then we want to add them too.
+<<variables>>=
+options+="r"
+usage+=" [-r]"
+repo_files=""
+@ By default we do not add them, but we add them if the option is given.
+<<arguments handler code>>=
+-r)
+  repo_files="CONTRIBUTING LICENSE README"
+  shift;;
+@
+
+
+\subsection{Copying the templates into location}
+
+Now we only have to copy the selected files, i.e.
+<<copy templates into location>>=
+<<copy the TeX files>>
+<<copy the Makefile>>
+<<copy the repo files>>
+@
+
+Copying the TeX-files is straight-forward, we simply copy them from the 
+template directory.
+However, we want to check if the file already exists, we would not want to 
+overwrite any existing files --- hence requesting cp(1) to prompt before 
+overwriting.
+<<variables>>=
+CP="cp -i"
+@ Thus to copy the files we do as follows.
+<<copy the TeX files>>=
+for f in ${files}; do
+  ${CP} ${template_dir}/${f} .
+done
+@
+
+There should be only one makefile, but use a for-iteration for generality.
+The selected file must be renamed.
+<<copy the Makefile>>=
+for f in ${makefile}; do
+  ${CP} ${template_dir}/${f} Makefile
+done
+@
+
+Finally, we must copy the repository files.
+These are more than one and they must all be renamed.
+<<copy the repo files>>=
+for f in ${repo_files}; do
+  ${CP} ${template_dir}/${f}.template ${f}
+done
+@
+
+
+\section{Substituting values}
+\label{SubstitutingValues}
+
+We want to change some values automatically when we use the templates, this 
+will be faster than to do it by hand every time.
+
+\subsection{Getting the values to substitute}
+
+The first substitution that comes to mind is to set the author's name and email
+address.
+We take the default values from the environment variables [[NAME]] and [[MAIL]]
+(same as for dtxgen~\cite{dtxgen}).
+<<variables>>=
+options+="n:m:a:"
+usage+=" [-n <author name>] [-m <author mail>] [-a <affiliation>]"
+name="${NAME:=Author Authorsson}"
+mail="${MAIL:=foo@bar.tld}"
+affil="${AFFIL:=Independent researcher}"
+@ When we process these arguments we simply set the internal variables to the 
+given values.
+<<arguments handler code>>=
+-n)
+  name="$2"
+  shift; shift;;
+-m)
+  mail="$2"
+  shift; shift;;
+@
+
+We also want to be able to set the title and a \enquote{file-name title} (i.e.\ 
+package name) of the document.
+The default value for the package name is the same as the current working 
+directory.
+<<variables>>=
+options+="t:p:"
+usage+=" [-t <title>] [-p <package name>]"
+package="$(pwd | sed "s/.*\///")"
+@ When processing the arguments, we simply set the internal variables to the 
+given values.
+<<arguments handler code>>=
+-t)
+  title="$2"
+  shift; shift;;
+-f)
+  package="$2"
+  shift; shift;;
+@
+
+There is also the location of the submodules, in particular the root directory 
+of the [[makefiles]] module~\cite{makefiles}.
+<<variables>>=
+options+="i:"
+submodule_prefix="."
+@ Then we update this variable if its argument is given.
+<<arguments handler code>>=
+-i)
+  submodule_prefix="$2"
+  shift; shift;;
+@
+
+\subsection{Doing the substitution}
+\label{DoingSubstitution}
+
+\dots
+
+
+\printbibliography{}
+\end{document}
