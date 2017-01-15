@@ -1,7 +1,7 @@
 .PHONY: all
 all: notes.pdf slides.pdf
 
-SRC=		preamble.tex XXX.bib
+SRC=		preamble.tex <package>.bib
 SRC+=		abstract.tex content.tex
 
 notes.pdf: llncs biblatex-lncs
@@ -10,5 +10,5 @@ notes.pdf: notes.tex ${SRC}
 slides.pdf: slides.tex ${SRC}
 
 
-INCLUDE_MAKEFILES=../makefiles
+INCLUDE_MAKEFILES=<submodule_prefix>/makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
