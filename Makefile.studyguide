@@ -19,12 +19,12 @@ studyguide.pdf: ${SRC}
 studyguide.pdf: llncs biblatex-lncs
 
 
-.PHONY: clean-depends
-clean-depends:
+.PHONY: distclean
+distclean:
 	${RM} ${MODULE_FILES}
 
 
 ### INCLUDES ###
 
-INCLUDE_MAKEFILES=../makefiles
+INCLUDE_MAKEFILES=<submodule_prefix>/makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
