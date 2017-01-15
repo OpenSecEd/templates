@@ -36,6 +36,9 @@ PKG_TARBALL_FILES=			${PKG_INSTALL_FILES-bin} ${PKG_INSTALL_FILES-share}
 texgen.tar.gz: texgen.tar
 	${COMPRESS.gz}
 
+post-install-share:
+	chmod -R -x ${PKG_PREFIX}${PKG_INSTALL_DIR-share}/*
+
 
 INCLUDE_MAKEFILES=makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
