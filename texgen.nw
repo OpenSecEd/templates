@@ -148,6 +148,7 @@ program code.
 \item[-n] toggles notes.
 \item[-s] toggles slides.
 \item[-w] toggles NOWEB source code.
+\item[-l] toggles letter.
 \item[-p] toggles preamble.
 \item[-a] toggles abstract.
 \item[-c] toggles contents.
@@ -198,6 +199,17 @@ usage="${usage} [-p] [-a] [-c]"
   shift;;
 -c)
   files="${files} contents.tex"
+  shift;;
+@
+
+We also have the letter, which is the same as for notes and the slides.
+<<variables>>=
+options="${options}l"
+usage="${usage} [-l]"
+@ Then we do the same when processing this too.
+<<arguments handler code>>=
+-l)
+  files="${files} letter.tex"
   shift;;
 @
 

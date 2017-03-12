@@ -38,6 +38,7 @@ PKG_INSTALL_FILES-share+=	Makefile.slides
 PKG_INSTALL_FILES-share+=	Makefile.guide
 PKG_INSTALL_FILES-share+=	program.nw
 PKG_INSTALL_FILES-share+=	Makefile.noweb
+PKG_INSTALL_FILES-share+=	letter.tex
 
 PKG_TARBALL=				texgen.tar
 PKG_TARBALL_FILES=			${PKG_INSTALL_FILES-bin} ${PKG_INSTALL_FILES-share}
