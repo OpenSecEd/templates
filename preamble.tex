@@ -2,15 +2,12 @@
 \usepackage[T1]{fontenc}
 \usepackage[british]{babel}
 \usepackage[defblank,oldenum]{paralist}
-\usepackage{cleveref}
-
-\usepackage{amssymb}
-\usepackage{amsmath}
+\usepackage[capitalize]{cleveref}
 
 \usepackage[strict]{csquotes}
-\usepackage{acro}
+\usepackage[single]{acro}
 
-\usepackage[natbib,style=lncs,maxbibnames=99]{biblatex}
+\usepackage[natbib,style=alphabetic,maxbibnames=99]{biblatex}
 \addbibresource{<package>.bib}
 
 \usepackage[noend]{algpseudocode}
@@ -18,4 +15,17 @@
 
 \let\email\texttt
 
+\usepackage{listings}
+\lstset{%
+  basicstyle=\footnotesize,
+  numbers=left
+}
 
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[unq]{unique}
+\declaretheorem[style=definition,numbered=unless unique,
+  name=Example,refname={example,examples}]{example}
