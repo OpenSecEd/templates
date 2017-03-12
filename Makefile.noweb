@@ -1,0 +1,34 @@
+.PHONY: all
+all: <package>.pdf
+
+<package>.pdf: <package>.tex <package>.bib
+<package>.pdf: abstract.tex LICENSE
+
+<package>.tex: <package>.nw
+
+
+.PHONY:
+all: <package>
+
+<package>.py: <package>.nw
+<package>: <package>.py
+	cp $^ $@
+	chmod +x $@
+
+
+.PHONY: clean
+clean:
+	${RM} <package> <package>.py <package>.pdf <package>.tex
+
+
+PKG_NAME-main= 			<package>
+PKG_FILES-main= 		<package>
+PKG_PREFIX-main= 		/usr/local
+PKG_DIR-main= 			/bin
+PKG_TARBALL_FILES-main= ${PKG_FILES-main} Makefile
+
+
+INCLUDE_MAKEFILES=<submodule_prefix>/makefiles
+include ${INCLUDE_MAKEFILES}/tex.mk
+include ${INCLUDE_MAKEFILES}/noweb.mk
+include ${INCLUDE_MAKEFILES}/package.mk

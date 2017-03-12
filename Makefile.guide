@@ -1,13 +1,12 @@
 .PHONY: all
 all: studyguide.pdf
 
-SRC=		studyguide.tex
+SRC+=		studyguide.tex
 SRC+=		${MODULE_FILES}
 
-MODULE_FILES+= 	XXX-aim.tex XXX-lit.tex XXX.bib
+MODULE_FILES+= 	XXX-abstract.tex XXX.bib
 
-XXX-aim.tex: ../modules/XXX/aims.tex
-XXX-lit.tex: ../modules/XXX/abstract.tex
+XXX-abstract.tex: ../modules/XXX/abstract.tex
 XXX.bib: ../modules/XXX/XXX.bib
 
 

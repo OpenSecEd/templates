@@ -70,7 +70,7 @@ if [ $# = 0 ]; then
   echo "$0 ${usage}"
   exit 2
 fi
-args=$(getopt "${options}" "$@")
+args=$(getopt "${options}" "$@") || exit $?
 set -- $args
 @ The last line changes the actual arguments from what is given by the user to 
 something homogenized by getopt(1).
@@ -141,52 +141,125 @@ To use them, we will simply do the following.
 We have several templates and it might not be interesting to use all at the 
 same time.
 Thus we want to control which templates to use, i.e.\ copy into location.
-We want to use the basic TeX-files for a document --- which also has 
-corresponding slides (using beamerarticle).
-<<variables>>=
-files="${files} notes.tex slides.tex"
-files="${files} preamble.tex contents.tex"
-@
+We will provide options which control what is to be added from the templates.
+There are three types of documents that we support: notes, slides and NOWEB 
+program code.
+\begin{description}
+\item[-n] toggles notes.
+\item[-s] toggles slides.
+\item[-w] toggles NOWEB source code.
+\item[-p] toggles preamble.
+\item[-a] toggles abstract.
+\item[-c] toggles contents.
+\item[-r] toggles README and CONTRIBUTING.
+\item[-L] chooses the license.
+\item[-M] chooses the Makefile.
+\end{description}
+We will start with the toggles and then proceed with the selectors.
 
-There are also other files that we might want.
-First, there is the Makefile.
-There are two versions, one for a normal document and one for a study guide.
-We will add an option to change from the default of a normal document.
+The notes is a template setting up compilation of the contents as notes, e.g.\ 
+lecture notes or a paper.
+We first add add the option for the notes.
 <<variables>>=
-options="${options}g"
-usage="${usage} [-g]"
-makefile="Makefile.slides"
-@ Then we change the default if the argument is given.
+options="${options}n"
+usage="${usage} [-n]"
+@ Then we add the code to handle this option.
+What we do is to add the file [[notes.tex]] to the list of files to copy later.
 <<arguments handler code>>=
--g)
-  makefile="Makefile.studyguide"
+-n)
+  files="${files} notes.tex"
+  shift;;
+@ It is similar for the slides and the NOWEB source code.
+<<variables>>=
+options="${options}sw"
+usage="${usage} [-s] [-w]"
+@ And the code to handle it.
+<<arguments handler code>>=
+-s)
+  files="${files} slides.tex"
+  shift;;
+-w)
+  noweb_files="${noweb_files} program.nw"
+  shift;;
+@ We will see in \cref{SubstitutingValues} that we will rename [[program.nw]] 
+to something better.
+
+We also have the preamble, abstract and the contents.
+<<variables>>=
+options="${options}pac"
+usage="${usage} [-p] [-a] [-c]"
+@ Then the code to handle them is as follows.
+<<arguments handler code>>=
+-p)
+  files="${files} preamble.tex"
+  shift;;
+-a)
+  files="${files} abstract.tex"
+  shift;;
+-c)
+  files="${files} contents.tex"
   shift;;
 @
 
-Second, there are the standard files part of any repository: general 
-\enquote{read me}, information about contributions, license.
+Next, there are the standard files part of any repository: general 
+\enquote{read me} and information about contributions.
+(We leave the license for later.)
 If the generated document is part of a larger repository, then these files are 
 probably already present in the repository root.
-If not, then we want to add them too.
+If not, then we allow the user to add them too.
 <<variables>>=
 options="${options}r"
 usage="${usage} [-r]"
 repo_files=""
-@ By default we do not add them, but we add them if the option is given.
+@ These need special treatment later, so we do not add the to the [[files]] 
+variable.
+We add them to a special variable [[repo_files]].
 <<arguments handler code>>=
 -r)
-  repo_files="${repo_files} CONTRIBUTING LICENSE README"
+  repo_files="${repo_files} CONTRIBUTING.md README.md"
   shift;;
 @
 
+Now we will proceed with the selectors.
+We will start with the license.
+As indicated above, we will provide an option where we can specify which 
+license we want.
+First, we need to add it to the options.
+<<variables>>=
+options="${options}L:"
+usage="${usage} [-L <license>]"
+@ Similarly as for the repo files, we need special treatment of these files.
+We also choose the file name based on the input from the user.
+<<arguments handler code>>=
+-L)
+  license="${2}"
+  license_file="LICENSE"
+  shift; shift;;
+@ The special treatment we need later, is to remove the suffix which indicates 
+the license.
+
+The next files we must choose from are the makefiles.
+This will be done in the same fashion as the license file.
+<<variables>>=
+options="${options}M:"
+usage="${usage} [-M <type>]"
+@ Then we process the argument as follows.
+<<arguments handler code>>=
+-M)
+  makefile="${2}"
+  makefile_file="Makefile"
+  shift; shift;;
+@ We need the same special treatment for the makefiles as for the license.
 
 \subsection{Copying the templates into location}
 
 Now we only have to copy the selected files, i.e.
 <<copy templates into location>>=
 <<copy the TeX files>>
-<<copy the Makefile>>
 <<copy the repo files>>
+<<copy the license>>
+<<copy the Makefile>>
+<<copy the NOWEB files>>
 @
 
 Copying the TeX-files is straight-forward, we simply copy them from the 
@@ -203,19 +276,39 @@ for f in ${files}; do
 done
 @
 
-There should be only one makefile, but use a for-iteration for generality.
+There should be only one makefile, but we use a for-iteration for generality.
 The selected file must be renamed.
 <<copy the Makefile>>=
-for f in ${makefile}; do
-  ${CP} ${template_dir}/${f} Makefile
+for m in ${makefile}; do
+  ${CP} ${template_dir}/${makefile_file}.${m} ${makefile_file}
+done
+@ The same applies to the license file.
+<<copy the license>>=
+for l in ${license}; do
+  ${CP} ${template_dir}/${license_file}.${l} ${license_file}
 done
 @
 
-Finally, we must copy the repository files.
+Next, we must copy the repository files.
 These are more than one and they must all be renamed.
 <<copy the repo files>>=
 for f in ${repo_files}; do
   ${CP} ${template_dir}/${f}.template ${f}
+done
+@
+
+Finally, we must copy the NOWEB file.
+This file should be given a proper name.
+In \cref{GettingValues} we will define a variable [[package]] which contains 
+a suitable package name.
+This name typically reflects the name of the NOWEB program, so we will use 
+that.
+<<copy the NOWEB files>>=
+for f in ${noweb_files}; do
+  if [ "${f}" = "program.nw" ]; then
+    ${CP} ${template_dir}/${f} ${package}.nw
+    noweb_program="${package}.nw"
+  fi
 done
 @
 
@@ -235,7 +328,8 @@ desired value set above.
 What we need to do is to iterate through the list of files and substitute the 
 values.
 <<substitute values>>=
-for f in ${files} Makefile ${repo_files}; do
+for f in ${files} ${makefile_file} ${license_file} ${repo_files} ${noweb_program}
+do
   <<run sed(1) on file>>
 done
 @ Now the question is what values to substitute.
@@ -257,23 +351,23 @@ address.
 We take the default values from the environment variables [[NAME]] and [[MAIL]]
 (same as for dtxgen~\cite{dtxgen}).
 <<variables>>=
-options="${options} n:m:a:"
-usage="${usage} [-n <author name>] [-m <author mail>] [-a <affiliation>]"
+options="${options} N:M:A:"
+usage="${usage} [-N <author name>] [-M <author mail>] [-A <affiliation>]"
 name="${NAME:=Author Authorsson}"
 mail="${MAIL:=foo@bar.tld}"
 affil="${AFFIL:=Independent researcher}"
 @ When we process these arguments we simply set the internal variables to the 
 given values.
 <<arguments handler code>>=
--n)
+-N)
   shift
   name="$(get_arg "$@")"
   for w in ${name}; do shift; done;;
--m)
+-M)
   shift
   mail="$(get_arg "$@")"
   for w in ${mail}; do shift; done;;
--a)
+-A)
   shift
   affil="$(get_arg "$@")"
   for w in ${affil}; do shift; done;;
@@ -291,6 +385,7 @@ directory.
 <<variables>>=
 options="${options}t:p:"
 usage="${usage} [-t <title>] [-p <package name>]"
+title="Untitled work $(date)"
 package="$(pwd | sed "s/.*\///")"
 @ When processing the arguments, we simply set the internal variables to the 
 given values.
