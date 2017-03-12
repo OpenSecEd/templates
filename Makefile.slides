@@ -1,8 +1,8 @@
 .PHONY: all
 all: notes.pdf slides.pdf
 
-SRC=		preamble.tex <package>.bib
-SRC+=		abstract.tex content.tex
+SRC=		preamble.tex
+SRC+=		abstract.tex contents.tex
 
 notes.pdf: llncs biblatex-lncs
 notes.pdf: notes.tex ${SRC}
