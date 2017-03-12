@@ -31,7 +31,10 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  \dots
+  This program allows quick access to templates for LaTeX documents, slides and
+  NOWEB program source.
+  It also includes templates for the corresponding makefiles and other files 
+  necessary for a public open source repository.
 \end{abstract}
 \clearpage
 \tableofcontents
