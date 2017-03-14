@@ -68,6 +68,7 @@ Otherwise we let getopt(1) parse them.
 <<parse command-line arguments>>=
 if [ $# = 0 ]; then
   echo "$0 ${usage}"
+  echo "${long_usage}"
   exit 2
 fi
 args=$(getopt "${options}" "$@") || exit $?
@@ -164,6 +165,7 @@ We first add add the option for the notes.
 <<variables>>=
 options="${options}n"
 usage="${usage} [-n]"
+long_usage="${long_usage}\n-n\ttoggles notes"
 @ Then we add the code to handle this option.
 What we do is to add the file [[notes.tex]] to the list of files to copy later.
 <<arguments handler code>>=
@@ -174,6 +176,8 @@ What we do is to add the file [[notes.tex]] to the list of files to copy later.
 <<variables>>=
 options="${options}sw"
 usage="${usage} [-s] [-w]"
+long_usage="${long_usage}\n-s\ttoggles slides"
+long_usage="${long_usage}\n-w\ttoggles NOWEB program source"
 @ And the code to handle it.
 <<arguments handler code>>=
 -s)
@@ -189,6 +193,9 @@ We also have the preamble, abstract and the contents.
 <<variables>>=
 options="${options}pac"
 usage="${usage} [-p] [-a] [-c]"
+long_usage="${long_usage}\n-p\ttoggles preamble"
+long_usage="${long_usage}\n-a\ttoggles abstract"
+long_usage="${long_usage}\n-c\ttoggles contents"
 @ Then the code to handle them is as follows.
 <<arguments handler code>>=
 -p)
@@ -206,6 +213,7 @@ We also have the letter, which is the same as for notes and the slides.
 <<variables>>=
 options="${options}l"
 usage="${usage} [-l]"
+long_usage="${long_usage}\n-l\ttoggles letter"
 @ Then we do the same when processing this too.
 <<arguments handler code>>=
 -l)
@@ -222,6 +230,7 @@ If not, then we allow the user to add them too.
 <<variables>>=
 options="${options}r"
 usage="${usage} [-r]"
+long_usage="${long_usage}\n-r\ttoggles README and CONTRIBUTING"
 repo_files=""
 @ These need special treatment later, so we do not add the to the [[files]] 
 variable.
@@ -240,6 +249,7 @@ First, we need to add it to the options.
 <<variables>>=
 options="${options}L:"
 usage="${usage} [-L <license>]"
+long_usage="${long_usage}\n-L <license>\tselects license"
 @ Similarly as for the repo files, we need special treatment of these files.
 We also choose the file name based on the input from the user.
 <<arguments handler code>>=
@@ -254,7 +264,8 @@ The next files we must choose from are the makefiles.
 This will be done in the same fashion as the license file.
 <<variables>>=
 options="${options}M:"
-usage="${usage} [-M <type>]"
+usage="${usage} [-M <makefile>]"
+long_usage="${long_usage}\n-M <makefile>\tselects makefile"
 @ Then we process the argument as follows.
 <<arguments handler code>>=
 -M)
@@ -365,6 +376,9 @@ We take the default values from the environment variables [[NAME]] and [[MAIL]]
 <<variables>>=
 options="${options} N:M:A:"
 usage="${usage} [-N <author name>] [-M <author mail>] [-A <affiliation>]"
+long_usage="${long_usage}\n-N <author name>\tsets author's name"
+long_usage="${long_usage}\n-M <author name>\tsets author's mail"
+long_usage="${long_usage}\n-A <author name>\tsets author's affiliation"
 name="${NAME:=Author Authorsson}"
 mail="${MAIL:=foo@bar.tld}"
 affil="${AFFIL:=Independent researcher}"
@@ -395,8 +409,10 @@ package name) of the document.
 The default value for the package name is the same as the current working 
 directory.
 <<variables>>=
-options="${options}t:p:"
-usage="${usage} [-t <title>] [-p <package name>]"
+options="${options}t:f:"
+usage="${usage} [-t <title>] [-f <package name>]"
+long_usage="${long_usage}\n-t <document title>\tsets documents's title"
+long_usage="${long_usage}\n-f <package name>\tsets package's (file) name"
 title="Untitled work $(date)"
 package="$(pwd | sed "s/.*\///")"
 @ When processing the arguments, we simply set the internal variables to the 
@@ -421,6 +437,7 @@ of the [[makefiles]] module~\cite{makefiles}.
 <<variables>>=
 options="${options}i:"
 usage="${usage} [-i <submodule root>]"
+long_usage="${long_usage}\n-i <submodule root>\tsets root to find submodules"
 submodule_prefix="."
 @ Then we update this variable if its argument is given.
 <<arguments handler code>>=
