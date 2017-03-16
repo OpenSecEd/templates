@@ -1,0 +1,33 @@
+EXAM_NAME=    exam
+EXAM_QNAME=   questions
+EXAM_FLAGS=   -NCE
+
+.PHONY: <year>
+<year>:		exam-<date>.pdf exam-<date>.pdf exam-<date>.pdf
+
+EXAM_IDS+=	<date> <date> <date>
+
+EXAM_TAGS+=	AnalyseNeededCryptoProperties
+EXAM_TAGS+=	DesignSystemsByCombiningPrimitives
+EXAM_TAGS+=	EvaluateSecureDesigns
+
+EXAM_DBS+=	../modules/crypto/overview/questions.tex
+EXAM_DBS+=	../modules/crypto/overivew/slides.tex
+
+STUDENTS?=	user1 user2 user3
+
+.PHONY: individualized
+individualized: $(foreach id,${STUDENTS}, ${EXAM_NAME}-${id}.pdf)
+
+EXAM_IDS+=      ${STUDENTS}
+
+EXAM_TAGS-user1=  AnalyseNeededCryptoProperties
+EXAM_TAGS-user2=  DesignSystemsByCombiningPrimitives
+EXAM_TAGS-user3=  EvaluateSecureDesigns
+
+$(foreach id,${STUDENTS},$(eval EXAM_FLAGS-${id}=-NCi))
+
+
+INCLUDE_MAKEFILES=<submodule_root>/makefiles
+include ${INCLUDE_MAKEFILES}/tex.mk
+include ${INCLUDE_MAKEFILES}/exam.mk
