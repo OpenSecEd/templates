@@ -6,6 +6,24 @@ texgen: texgen.sh
 
 texgen.sh: texgen.nw
 
+texgen.pdf: texgen.tex
+texgen.pdf: notes.tex
+texgen.pdf: slides.tex
+texgen.pdf: abstract.tex
+texgen.pdf: preamble.tex
+texgen.pdf: contents.tex
+texgen.pdf: acknowledgements.tex
+texgen.pdf: letter.tex
+texgen.pdf: Makefile.guide
+texgen.pdf: Makefile.notes
+texgen.pdf: Makefile.root
+texgen.pdf: Makefile.slides
+texgen.pdf: program.nw
+texgen.pdf: Makefile.noweb
+texgen.pdf: README.md.template
+texgen.pdf: CONTRIBUTING.md.template
+texgen.pdf: LICENSE.CC
+texgen.pdf: LICENSE.MIT
 
 .PHONY: clean
 clean:

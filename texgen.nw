@@ -14,6 +14,12 @@
 \def\nwendcode{\endtrivlist \endgroup}
 \let\nwdocspar=\smallbreak
 
+\usepackage{listings}
+\lstset{%
+  basicstyle=\footnotesize,
+  numbers=left
+}
+
 \usepackage[natbib,style=alphabetic,maxbibnames=99]{biblatex}
 \addbibresource{texgen.bib}
 
@@ -452,4 +458,93 @@ sed -i "s/<submodule_prefix>/${submodule_prefix## }/g" ${f}
 
 
 \printbibliography{}
+
+
+\appendix
+\section{Templates for notes and slides}
+
+\subsection{Main file for lecture notes or papers}
+
+\lstinputlisting[language={[latex]tex}]{notes.tex}
+
+\subsection{Main file for slides}
+
+\lstinputlisting[language={[latex]tex}]{slides.tex}
+
+\subsection{Abstract}
+
+\lstinputlisting[language={[latex]tex}]{abstract.tex}
+
+\subsection{Preamble}
+
+\lstinputlisting[language={[latex]tex}]{preamble.tex}
+
+\subsection{Contents}
+
+\lstinputlisting[language={[latex]tex}]{contents.tex}
+
+\subsection{Acknowledgements}
+
+\lstinputlisting[language={[latex]tex}]{acknowledgements.tex}
+
+
+\section{Template makefiles for notes and slides}
+
+\subsection{Makefile for notes}
+
+\lstinputlisting{Makefile.notes}
+
+\subsection{Makefile for slides and notes}
+
+\lstinputlisting{Makefile.slides}
+
+
+\section{Template for letters}
+
+\lstinputlisting[language={[latex]tex}]{letter.tex}
+
+
+\section{Template for NOWEB programs}
+
+\subsection{NOWEB source code}
+
+\lstinputlisting[language={[latex]tex}]{program.nw}
+
+\subsection{Makefile for NOWEB programs}
+
+\lstinputlisting{Makefile.noweb}
+
+
+\section{Template makefiles for document hierarchies}
+
+\subsection{Course root}
+
+\lstinputlisting{Makefile.root}
+
+\subsection{Study guide}
+
+\lstinputlisting{Makefile.guide}
+
+
+\section{Templates for repo files}
+
+\subsection{README}
+
+\lstinputlisting{README.md.template}
+
+\subsection{CONTRIBUTING}
+
+\lstinputlisting{CONTRIBUTING.md.template}
+
+
+\section{Templates for licenses}
+
+\subsection{Creative Commons}
+
+\lstinputlisting{LICENSE.CC}
+
+\subsection{MIT}
+
+\lstinputlisting{LICENSE.MIT}
+
 \end{document}
