@@ -1,0 +1,36 @@
+\documentclass[a4paper]{letter}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[british]{babel}
+\usepackage{csquotes}
+\usepackage{pdfpages}
+\includepdfset{pages=-}
+
+\signature{<author>}
+\address{%
+  <author>\\
+  Some street 1\\
+  123\,45 Some place\\
+  Some country
+}
+
+\begin{document}
+\begin{letter}{%
+    Recipient\\
+    Some other street 1\\
+    678\,90 Some other place\\
+    Some other country
+  }
+  \opening{To whom it may concern,}
+
+  I'm writing to you concerning \enquote{something of interest} \dots
+
+  \closing{Faithfully,}
+
+  \encl{%
+    Some attached document
+  }
+  %\includepdf{some-attached-document.pdf}
+
+\end{letter}
+\end{document}
