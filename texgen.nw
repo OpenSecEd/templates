@@ -459,7 +459,7 @@ submodule_prefix="."
 <<arguments handler code>>=
 -i)
   shift
-  submodule_prefix="$(get_arg) "$@""
+  submodule_prefix="$(get_arg "$@")"
   for w in ${submodule_prefix}; do shift; done;;
 @ Now we can add the following sed(1) substitutions.
 <<run sed(1) on file>>=
