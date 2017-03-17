@@ -64,6 +64,7 @@ PKG_INSTALL_FILES-share+=	Makefile.noweb
 
 PKG_TARBALL=				texgen.tar
 PKG_TARBALL_FILES=			${PKG_INSTALL_FILES-bin} ${PKG_INSTALL_FILES-share}
+PKG_TARBALL_FILES+=			makefiles
 
 texgen.tar.gz: texgen.tar
 	${COMPRESS.gz}
