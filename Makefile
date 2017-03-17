@@ -13,11 +13,13 @@ texgen.pdf: abstract.tex
 texgen.pdf: preamble.tex
 texgen.pdf: contents.tex
 texgen.pdf: acknowledgements.tex
-texgen.pdf: letter.tex
-texgen.pdf: Makefile.guide
 texgen.pdf: Makefile.notes
-texgen.pdf: Makefile.root
 texgen.pdf: Makefile.slides
+texgen.pdf: letter.tex
+texgen.pdf: exam.tex
+texgen.pdf: Makefile.exam
+texgen.pdf: Makefile.guide
+texgen.pdf: Makefile.root
 texgen.pdf: program.nw
 texgen.pdf: Makefile.noweb
 texgen.pdf: README.md.template
@@ -45,18 +47,20 @@ PKG_INSTALL_FILES-share+=	README.md.template
 PKG_INSTALL_FILES-share+=	CONTRIBUTING.md.template
 PKG_INSTALL_FILES-share+=	LICENSE.CC
 PKG_INSTALL_FILES-share+=	LICENSE.MIT
+PKG_INSTALL_FILES-share+=	notes.tex
+PKG_INSTALL_FILES-share+=	slides.tex
+PKG_INSTALL_FILES-share+=	preamble.tex
 PKG_INSTALL_FILES-share+=	abstract.tex
 PKG_INSTALL_FILES-share+=	contents.tex
-PKG_INSTALL_FILES-share+=	notes.tex
-PKG_INSTALL_FILES-share+=	preamble.tex
-PKG_INSTALL_FILES-share+=	slides.tex
-PKG_INSTALL_FILES-share+=	Makefile.root
 PKG_INSTALL_FILES-share+=	Makefile.notes
 PKG_INSTALL_FILES-share+=	Makefile.slides
+PKG_INSTALL_FILES-share+=	letter.tex
+PKG_INSTALL_FILES-share+=	exam.tex
+PKG_INSTALL_FILES-share+=	Makefile.exam
+PKG_INSTALL_FILES-share+=	Makefile.root
 PKG_INSTALL_FILES-share+=	Makefile.guide
 PKG_INSTALL_FILES-share+=	program.nw
 PKG_INSTALL_FILES-share+=	Makefile.noweb
-PKG_INSTALL_FILES-share+=	letter.tex
 
 PKG_TARBALL=				texgen.tar
 PKG_TARBALL_FILES=			${PKG_INSTALL_FILES-bin} ${PKG_INSTALL_FILES-share}

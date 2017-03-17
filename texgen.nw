@@ -513,6 +513,17 @@ sed -i "s/<submodule_prefix>/${submodule_prefix## }/g" ${f}
 \lstinputlisting[language={[latex]tex}]{letter.tex}
 
 
+\section{Template for exams}
+
+\subsection{Main file for exam}
+
+\lstinputlisting[language={[latex]tex}]{exam.tex}
+
+\subsection{Makefile for exams}
+
+\lstinputlisting{Makefile.exam}
+
+
 \section{Template for NOWEB programs}
 
 \subsection{NOWEB source code}
