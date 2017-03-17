@@ -160,7 +160,7 @@ program code.
 \item[-p] toggles preamble.
 \item[-a] toggles abstract.
 \item[-c] toggles contents.
-\item[-r] toggles README and CONTRIBUTING.
+\item[-R] toggles README and CONTRIBUTING.
 \item[-L] chooses the license.
 \item[-M] chooses the Makefile.
 \end{description}
@@ -240,15 +240,15 @@ If the generated document is part of a larger repository, then these files are
 probably already present in the repository root.
 If not, then we allow the user to add them too.
 <<variables>>=
-options="${options}r"
-usage="${usage} [-r]"
-long_usage="${long_usage}\n-r\ttoggles README and CONTRIBUTING"
+options="${options}R"
+usage="${usage} [-R]"
+long_usage="${long_usage}\n-R\ttoggles README and CONTRIBUTING"
 repo_files=""
 @ These need special treatment later, so we do not add the to the [[files]] 
 variable.
 We add them to a special variable [[repo_files]].
 <<arguments handler code>>=
--r)
+-R)
   repo_files="${repo_files} CONTRIBUTING.md README.md"
   shift;;
 @
@@ -389,11 +389,11 @@ address.
 We take the default values from the environment variables [[NAME]] and [[MAIL]]
 (same as for dtxgen~\cite{dtxgen}).
 <<variables>>=
-options="${options} N:M:A:"
-usage="${usage} [-N <author name>] [-M <author mail>] [-A <affiliation>]"
+options="${options} N:m:A:"
+usage="${usage} [-N <author name>] [-m <author mail>] [-A <affiliation>]"
 long_usage="${long_usage}\n-N <author name>\tsets author's name"
-long_usage="${long_usage}\n-M <author name>\tsets author's mail"
-long_usage="${long_usage}\n-A <author name>\tsets author's affiliation"
+long_usage="${long_usage}\n-m <author mail>\tsets author's mail"
+long_usage="${long_usage}\n-A <author affil>\tsets author's affiliation"
 name="${NAME:=Author Authorsson}"
 mail="${MAIL:=foo@bar.tld}"
 affil="${AFFIL:=Independent researcher}"
@@ -404,7 +404,7 @@ given values.
   shift
   name="$(get_arg "$@")"
   for w in ${name}; do shift; done;;
--M)
+-m)
   shift
   mail="$(get_arg "$@")"
   for w in ${mail}; do shift; done;;
@@ -448,11 +448,12 @@ sed -i "s/<package>/${package## }/g" ${f}
 @
 
 There is also the location of the submodules, in particular the root directory 
-of the [[makefiles]] module~\cite{makefiles}.
+of the [[makefiles]] module~\cite{makefiles}, this is handled as a prefix to 
+the path.
 <<variables>>=
 options="${options}i:"
-usage="${usage} [-i <submodule root>]"
-long_usage="${long_usage}\n-i <submodule root>\tsets root to find submodules"
+usage="${usage} [-i <submodule prefix>]"
+long_usage="${long_usage}\n-i <submodule prefix>\tsets prefix to find submodules"
 submodule_prefix="."
 @ Then we update this variable if its argument is given.
 <<arguments handler code>>=
