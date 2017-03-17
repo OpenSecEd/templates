@@ -156,6 +156,7 @@ program code.
 \item[-s] toggles slides.
 \item[-w] toggles NOWEB source code.
 \item[-l] toggles letter.
+\item[-e] toggles exam.
 \item[-p] toggles preamble.
 \item[-a] toggles abstract.
 \item[-c] toggles contents.
@@ -215,15 +216,20 @@ long_usage="${long_usage}\n-c\ttoggles contents"
   shift;;
 @
 
-We also have the letter, which is the same as for notes and the slides.
+We also have the letter and exam, which are the same as for notes and the 
+slides.
 <<variables>>=
 options="${options}l"
-usage="${usage} [-l]"
+usage="${usage} [-l] [-e]"
 long_usage="${long_usage}\n-l\ttoggles letter"
+long_usage="${long_usage}\n-e\ttoggles exam"
 @ Then we do the same when processing this too.
 <<arguments handler code>>=
 -l)
   files="${files} letter.tex"
+  shift;;
+-e)
+  files="${files} exam.tex"
   shift;;
 @
 
