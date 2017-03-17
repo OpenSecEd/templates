@@ -219,7 +219,7 @@ long_usage="${long_usage}\n-c\ttoggles contents"
 We also have the letter and exam, which are the same as for notes and the 
 slides.
 <<variables>>=
-options="${options}l"
+options="${options}le"
 usage="${usage} [-l] [-e]"
 long_usage="${long_usage}\n-l\ttoggles letter"
 long_usage="${long_usage}\n-e\ttoggles exam"

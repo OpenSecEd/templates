@@ -28,6 +28,6 @@ EXAM_TAGS-user3=  EvaluateSecureDesigns
 $(foreach id,${STUDENTS},$(eval EXAM_FLAGS-${id}=-NCi))
 
 
-INCLUDE_MAKEFILES=<submodule_root>/makefiles
+INCLUDE_MAKEFILES=<submodule_prefix>/makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
 include ${INCLUDE_MAKEFILES}/exam.mk
