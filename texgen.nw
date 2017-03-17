@@ -370,9 +370,12 @@ done
 @ Now the question is what values to substitute.
 
 There are some values that we can substitute automatically, e.g.\ dates.
-We will substitute [[<year>]] with the current year.
+We will substitute [[<year>]] with the current year, [[<date>]] with the 
+current date and [[<iso-date>]] with the current date in ISO-format.
 <<run sed(1) on file>>=
 sed -i "s/<year>/$(date +%Y)/g" ${f}
+sed -i "s/<date>/$(date +%y%m%d)/g" ${f}
+sed -i "s/<iso-date>/$(date +%Y-%m-%d)/g" ${f}
 @
 
 \subsection{Getting the values to substitute}
