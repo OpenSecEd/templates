@@ -1,88 +1,71 @@
-% $Id$
-% Author:  Daniel Bosk <daniel.bosk@miun.se>
-\documentclass[svv,addpoints]{miunexam}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[swedish,english]{babel}
-\usepackage[hyphens]{url}
-\usepackage{hyperref}
+\documentclass[addpoints]{exam}
+\input{preamble.tex}
 \usepackage{color}
-\usepackage{prettyref,varioref}
-\usepackage{subfigure}
-\usepackage{amsmath,amssymb}
-\usepackage{listings}
 \usepackage{authblk}
 
-\usepackage{csquotes}
-\MakeBlockQuote{<}{|}{>}
-\EnableQuotes
+%\printanswers
 
-\usepackage[natbib,style=alphabetic,maxbibnames=99]{biblatex}
-\addbibresource{literature.bib}
-
-\printanswers
-
-\examtype{Final exam}
-\courseid{DT145G}
-\course{Computer Security}
-\date{2016-10-24}
+\title{<title>}
+\date{<iso-date>}
 \author{%
-  Daniel Bosk
+  <author>
 }
 \affil{%
-  Department of Information and Communication Systems,\\
-  Mid Sweden University, SE-851\,70 Sundsvall\\
-  Email: \href{mailto:daniel.bosk@miun.se}{daniel.bosk@miun.se}\\
-  Phone: 010-142\,8709
+  <affil>
 }
-
-\DeclareMathOperator{\hmac}{HMAC}
-\DeclareMathOperator{\xor}{\oplus}
-\DeclareMathOperator{\concat}{||}
 
 \begin{document}
 \maketitle
 \thispagestyle{foot}
 
 \section*{Instructions}
-\label{sec:Instructions}
+
 Carefully read the questions before you start answering them.
 Note the time limit of the exam and plan your answers accordingly.
+(The questions are \emph{not} sorted by difficulty.)
 Only answer the question, do not write about subjects remotely related to the
 question.
 
-Write your answers on separate sheets, not on the exam paper.
-Only write on one side of the sheets.
-Start each question on a new sheet.
-Do not forget to \emph{motivate your answers.}
+Make sure you follow these rules:
+\begin{itemize}
+  \item Write your answers on separate sheets, not on the exam paper.
+  \item Only write on one side of the sheets.
+  \item Start each question on a new sheet.
+  \item Do not forget to \emph{motivate your answers.}
+\end{itemize}
 
-Make sure you write your answers clearly, if I cannot read an answer the answer
-will be awarded no points---even if the answer is correct.
-The questions are \emph{not} sorted by difficulty.
+Make sure you write your answers clearly: if the examiner cannot read an 
+answer, the answer will be awarded zero(!) points --- even if the answer is 
+correct.
 
 \begin{description}
   \item[Time] 5 hours.
   \item[Aids] Dictionary.
-  \item[Maximum points] \numpoints
   \item[Questions] \numquestions
+  \item[Maximum points] \numpoints
 \end{description}
 
-\subsection*{Preliminary grades}
+\subsection*{Grading}
+
+Each question is worth three (3) points, representing how well you fulfil the 
+intended learning outcomes covered by the question.
 The following grading criteria applies:
-E \(\geq 50\%\),
-D \(\geq 60\%\),
-C \(\geq 70\%\), 
-B \(\geq 80\%\),
-A \(\geq 90\%\).
+\begin{description}
+  \item[E] at least one point on each question.
+  \item[D] closer to C than E.
+  \item[C] at least two points on each question.
+  \item[B] closer to A than C.
+  \item[A] at least three points on each question.
+\end{description}
 
 
 \clearpage
 \section*{Questions}
-The questions are given below.
-They are not given in any particular order.
+
+The questions are given below in uniformly random order.
 
 \begin{questions}
-  \input{questions-161024.tex}
+  \input{questions-<date>.tex}
 \end{questions}
 
 
