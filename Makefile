@@ -60,6 +60,7 @@ PKG_INSTALL_FILES-share+=	exam.tex
 PKG_INSTALL_FILES-share+=	Makefile.exam
 PKG_INSTALL_FILES-share+=	Makefile.root
 PKG_INSTALL_FILES-share+=	Makefile.guide
+PKG_TARBALL_FILES-share+=	Makefile.release
 PKG_INSTALL_FILES-share+=	program.nw
 PKG_INSTALL_FILES-share+=	Makefile.noweb
 
