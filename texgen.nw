@@ -542,6 +542,10 @@ sed -i "s/<submodule_prefix>/${submodule_prefix## }/g" ${f}
 
 \lstinputlisting{Makefile.root}
 
+\subsection{Release}
+
+\lstinputlisting{Makefile.release}
+
 \subsection{Study guide}
 
 \lstinputlisting{Makefile.guide}
