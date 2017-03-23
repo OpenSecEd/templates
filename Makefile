@@ -19,6 +19,7 @@ texgen.pdf: letter.tex
 texgen.pdf: exam.tex
 texgen.pdf: Makefile.exam
 texgen.pdf: Makefile.guide
+texgen.pdf: Makefile.release
 texgen.pdf: Makefile.root
 texgen.pdf: program.nw
 texgen.pdf: Makefile.noweb
