@@ -11,13 +11,7 @@
 \usepackage{authblk}
 \let\institute\affil
 
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\usepackage{amsthm}
-\usepackage{thmtools}
-\usepackage[unq]{unique}
-\declaretheorem{theorem}
+\declaretheorem[numbered=unless unique,style=theorem]{theorem}
 \declaretheorem[numbered=unless unique,style=definition]{definition}
 \declaretheorem[numbered=unless unique,style=definition]{assumption}
 \declaretheorem[numbered=unless unique,style=definition]{protocol}
@@ -26,8 +20,8 @@
 %  name=Example,refname={example,examples}]{example}
 \declaretheorem[numbered=unless unique,style=remark]{remark}
 \declaretheorem[numbered=unless unique,style=remark]{idea}
-\declaretheorem[numbered=unless unique,style=remark]{question}
 \declaretheorem[numbered=unless unique,style=exercise]{exercise}
+\declaretheorem[numbered=unless unique,style=exercise]{question}
 \declaretheorem[numbered=unless unique,style=solution]{solution}
 
 \begin{document}
