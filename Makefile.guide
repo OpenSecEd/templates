@@ -15,7 +15,11 @@ ${MODULE_FILES}:
 
 
 studyguide.pdf: ${SRC}
-studyguide.pdf: llncs biblatex-lncs
+
+
+.PHONY: clean
+clean:
+	${RM} studyguide.pdf
 
 
 .PHONY: distclean

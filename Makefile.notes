@@ -4,9 +4,13 @@ all: notes.pdf
 SRC+=		preamble.tex
 SRC+=		abstract.tex contents.tex
 
-notes.pdf: llncs biblatex-lncs
 notes.pdf: notes.tex
 notes.pdf: ${SRC}
+
+
+.PHONY: clean
+clean:
+	${RM} notes.pdf
 
 
 INCLUDE_MAKEFILES=<submodule_prefix>/makefiles
