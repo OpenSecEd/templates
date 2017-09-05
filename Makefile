@@ -78,4 +78,4 @@ post-install-share:
 INCLUDE_MAKEFILES=makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
 include ${INCLUDE_MAKEFILES}/noweb.mk
-include ${INCLUDE_MAKEFILES}/package.mk
+include ${INCLUDE_MAKEFILES}/pkg.mk
