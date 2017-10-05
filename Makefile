@@ -72,7 +72,7 @@ texgen.tar.gz: texgen.tar
 	${COMPRESS.gz}
 
 post-install-share:
-	chmod -R -x ${PKG_PREFIX}${PKG_INSTALL_DIR-share}/*
+	${SUDO} chmod -R -x ${PKG_PREFIX}${PKG_INSTALL_DIR-share}/*
 
 
 INCLUDE_MAKEFILES=makefiles
