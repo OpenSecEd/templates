@@ -6,9 +6,12 @@
   <affil>
 }
 
-\begin{frame}
-  \maketitle
-\end{frame}
+\mode<article>{\maketitle}
+\mode<presentation>{%
+  \begin{frame}
+    \maketitle
+  \end{frame}
+}
 
 \mode*
 
@@ -25,11 +28,13 @@
 
 \dots
 
-\begin{frame}
-  \begin{itemize}
-    \item \dots
-  \end{itemize}
-\end{frame}
+\mode<presentation>{%
+  \begin{frame}
+    \begin{itemize}
+      \item \dots
+    \end{itemize}
+  \end{frame}
+}
 
 \subsection{Why is it a problem?}
 % Why is it a problem? Research gap left by other approaches?
@@ -37,22 +42,26 @@
 
 \dots
 
-\begin{frame}
-  \begin{itemize}
-    \item \dots
-  \end{itemize}
-\end{frame}
+\mode<presentation>{%
+  \begin{frame}
+    \begin{itemize}
+      \item \dots
+    \end{itemize}
+  \end{frame}
+}
 
 \subsection{What's the approach?}
 % What's the approach? How to solve the problem?
 
 \dots
 
-\begin{frame}
-  \begin{itemize}
-    \item \dots
-  \end{itemize}
-\end{frame}
+\mode<presentation>{%
+  \begin{frame}
+    \begin{itemize}
+      \item \dots
+    \end{itemize}
+  \end{frame}
+}
 
 \subsection{What are the findings?}
 % What's the findings? How was it evaluated, what are the results, limitations, 
@@ -60,11 +69,13 @@
 
 \dots
 
-\begin{frame}
-  \begin{itemize}
-    \item \dots
-  \end{itemize}
-\end{frame}
+\mode<presentation>{%
+  \begin{frame}
+    \begin{itemize}
+      \item \dots
+    \end{itemize}
+  \end{frame}
+}
 
 
 %%% REFERENCES %%%
