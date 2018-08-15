@@ -46,6 +46,7 @@ PKG_INSTALL_FILES-bin=		texgen
 
 PKG_INSTALL_FILES-share+=	README.md.template
 PKG_INSTALL_FILES-share+=	CONTRIBUTING.md.template
+PKG_INSTALL_FILES-share+= 	circleci.config.yml.template
 PKG_INSTALL_FILES-share+=	LICENSE.CC
 PKG_INSTALL_FILES-share+=	LICENSE.MIT
 PKG_INSTALL_FILES-share+=	notes.tex
@@ -63,7 +64,6 @@ PKG_INSTALL_FILES-share+=	Makefile.guide
 PKG_TARBALL_FILES-share+=	Makefile.release
 PKG_INSTALL_FILES-share+=	program.nw
 PKG_INSTALL_FILES-share+=	Makefile.noweb
-PKG_INSTALL_FILES-share+= 	circleci.config.yml
 
 PKG_TARBALL=				texgen.tar
 PKG_TARBALL_FILES=			${PKG_INSTALL_FILES-bin} ${PKG_INSTALL_FILES-share}
