@@ -249,7 +249,7 @@ variable.
 We add them to a special variable [[repo_files]].
 <<arguments handler code>>=
 -R)
-  repo_files="${repo_files} CONTRIBUTING.md README.md"
+  repo_files="${repo_files} CONTRIBUTING.md README.md circleci.config.yml"
   shift;;
 @
 
