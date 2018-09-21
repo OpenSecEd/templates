@@ -2,7 +2,7 @@
 all: <package>.pdf
 
 <package>.pdf: <package>.tex <package>.bib
-<package>.pdf: abstract.tex LICENSE
+<package>.pdf: abstract.tex
 
 <package>.tex: <package>.nw
 
