@@ -28,6 +28,9 @@ EXAM_TAGS-user3=  EvaluateSecureDesigns
 $(foreach id,${STUDENTS},$(eval EXAM_FLAGS-${id}=-NCi))
 
 
+LATEXFLAGS+=	-shell-escape
+
+
 INCLUDE_MAKEFILES=<submodule_prefix>/makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
 include ${INCLUDE_MAKEFILES}/exam.mk

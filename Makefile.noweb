@@ -1,6 +1,8 @@
 .PHONY: all
 all: <package>.pdf
 
+LATEXFLAGS+=	-shell-escape
+
 <package>.pdf: <package>.tex <package>.bib
 <package>.pdf: abstract.tex
 
