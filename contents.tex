@@ -1,4 +1,21 @@
+\title{<title>}
+\author{<author>}
+\institute{<affil>}
+
 \mode*
+
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\begin{abstract}
+  \input{abstract.tex}
+\end{abstract}
+
+\begin{frame}
+  \only<presentation>{\tableofcontents[hideallsubsections]}
+  \only<article>{\tableofcontents}
+\end{frame}
 
 \section{Introduction}
 
@@ -57,4 +74,6 @@
   \end{frame}
 }
 
-
+\begin{frame}[allowframebreaks]
+  \printbibliography
+\end{frame}

@@ -1,6 +1,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[british]{babel}
+\usepackage[swedish,british]{babel}
+
+\usepackage{noweb}
 \usepackage{booktabs}
 
 \usepackage[natbib,style=alphabetic,maxbibnames=99]{biblatex}
@@ -10,7 +12,7 @@
 \renewcommand{\foreignfullfont}{}
 \renewcommand{\foreignabbrfont}{}
 
-\usepackage{newclude}
+%\usepackage{newclude}
 \usepackage{import}
 
 \usepackage[strict]{csquotes}
@@ -24,7 +26,7 @@
 \let\email\texttt
 
 \usepackage[outputdir=ltxobj]{minted}
-\setminted{autogobble}
+\setminted{autogobble,linenos}
 
 \usepackage{pythontex}
 \setpythontexoutputdir{.}
@@ -40,4 +42,7 @@
 
 \usepackage[binary-units]{siunitx}
 
-\usepackage[capitalize]{cleveref}
+\usepackage{didactic}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
