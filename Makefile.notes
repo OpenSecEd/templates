@@ -17,3 +17,6 @@ clean:
 
 INCLUDE_MAKEFILES=<submodule_prefix>/makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
+include ${INCLUDE_MAKEFILES}/noweb.mk
+INCLUDE_DIDACTIC=<submodule_prefix>/didactic
+include ${INCLUDE_DIDACTIC}/didactic.mk

@@ -3,7 +3,7 @@ all: <package>.pdf
 
 LATEXFLAGS+=	-shell-escape
 
-<package>.pdf: <package>.tex <package>.bib
+<package>.pdf: <package>.tex <package>.bib didactic.sty
 <package>.pdf: abstract.tex
 
 <package>.tex: <package>.nw
@@ -34,3 +34,5 @@ INCLUDE_MAKEFILES=<submodule_prefix>/makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
 include ${INCLUDE_MAKEFILES}/noweb.mk
 include ${INCLUDE_MAKEFILES}/pkg.mk
+INCLUDE_DIDACTIC=<submodule_prefix>/didactic
+include ${INCLUDE_DIDACTIC}/didactic.mk

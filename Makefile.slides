@@ -6,10 +6,10 @@ LATEXFLAGS+=	-shell-escape
 SRC+=		preamble.tex
 SRC+=		abstract.tex contents.tex
 
-notes.pdf: notes.tex
+notes.pdf: notes.tex didactic.sty
 notes.pdf: ${SRC}
 
-slides.pdf: slides.tex
+slides.pdf: slides.tex didactic.sty
 slides.pdf: ${SRC}
 
 
@@ -20,3 +20,6 @@ clean:
 
 INCLUDE_MAKEFILES=<submodule_prefix>/makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
+include ${INCLUDE_MAKEFILES}/noweb.mk
+INCLUDE_DIDACTIC=<submodule_prefix>/didactic
+include ${INCLUDE_DIDACTIC}/didactic.mk

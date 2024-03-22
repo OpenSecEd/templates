@@ -1,15 +1,16 @@
-\documentclass[a4paper]{article}
-\usepackage{noweb}
-% Needed to relax penalty for breaking code chunks across pages, otherwise 
-% there might be a lot of space following a code chunk.
-\def\nwendcode{\endtrivlist \endgroup}
-\let\nwdocspar=\smallbreak
-
-\usepackage[hyphens]{url}
-\usepackage{hyperref}
-\usepackage{authblk}
+\documentclass[a4paper,10pt,article,oneside,oldfontcommands]{memoir}
+\let\subsubsection\subsection
+\let\subsection\section
+\let\section\chapter
 
 \input{preamble.tex}
+\noweboptions{longxref,breakcode}
+
+\usepackage[noamsthm,notheorems]{beamerarticle}
+\setjobnamebeamerversion{slides}
+
+%\usepackage{authblk}
+%\let\institute\affil
 
 \title{%
   <title>
