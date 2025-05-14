@@ -1,27 +1,8 @@
 \documentclass[a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[british]{babel}
-\usepackage{authblk}
-\usepackage{hyperref}
-\usepackage{url}
-\usepackage{cleveref}
-\usepackage{csquotes}
-
-\usepackage{noweb}
-% Needed to relax penalty for breaking code chunks across pages, otherwise 
-% there might be a lot of space following a code chunk.
-\def\nwendcode{\endtrivlist \endgroup}
-\let\nwdocspar=\smallbreak
-
-\usepackage{listings}
-\lstset{%
-  basicstyle=\footnotesize,
-  numbers=left
-}
-
-\usepackage[natbib,style=alphabetic,maxbibnames=99]{biblatex}
+\input{preamble.tex}
 \addbibresource{texgen.bib}
+
+\usepackage{authblk}
 
 \title{texgen: A command for generating file structures for \LaTeX}
 \author{Daniel Bosk}
@@ -475,101 +456,101 @@ sed -i "s/<submodule_prefix>/${submodule_prefix## }/g" ${f}
 
 \subsection{Main file for lecture notes or papers}
 
-\lstinputlisting[language={[latex]tex}]{notes.tex}
+\inputminted{latex}{notes.tex}
 
 \subsection{Main file for slides}
 
-\lstinputlisting[language={[latex]tex}]{slides.tex}
+\inputminted{latex}{slides.tex}
 
 \subsection{Abstract}
 
-\lstinputlisting[language={[latex]tex}]{abstract.tex}
+\inputminted{latex}{abstract.tex}
 
 \subsection{Preamble}
 
-\lstinputlisting[language={[latex]tex}]{preamble.tex}
+\inputminted{latex}{preamble.tex}
 
 \subsection{Contents}
 
-\lstinputlisting[language={[latex]tex}]{contents.tex}
+\inputminted{latex}{contents.tex}
 
 \subsection{Acknowledgements}
 
-\lstinputlisting[language={[latex]tex}]{acknowledgements.tex}
+\inputminted{latex}{acknowledgements.tex}
 
 
 \section{Template makefiles for notes and slides}
 
 \subsection{Makefile for notes}
 
-\lstinputlisting{Makefile.notes}
+\inputminted{make}{Makefile.notes}
 
 \subsection{Makefile for slides and notes}
 
-\lstinputlisting{Makefile.slides}
+\inputminted{make}{Makefile.slides}
 
 
 \section{Template for letters}
 
-\lstinputlisting[language={[latex]tex}]{letter.tex}
+\inputminted{latex}{letter.tex}
 
 
 \section{Template for exams}
 
 \subsection{Main file for exam}
 
-\lstinputlisting[language={[latex]tex}]{exam.tex}
+\inputminted{latex}{exam.tex}
 
 \subsection{Makefile for exams}
 
-\lstinputlisting{Makefile.exam}
+\inputminted{make}{Makefile.exam}
 
 
 \section{Template for NOWEB programs}
 
 \subsection{NOWEB source code}
 
-\lstinputlisting[language={[latex]tex}]{program.nw}
+\inputminted{latex}{program.nw}
 
 \subsection{Makefile for NOWEB programs}
 
-\lstinputlisting{Makefile.noweb}
+\inputminted{make}{Makefile.noweb}
 
 
 \section{Template makefiles for document hierarchies}
 
 \subsection{Course root}
 
-\lstinputlisting{Makefile.root}
+\inputminted{make}{Makefile.root}
 
 \subsection{Release}
 
-\lstinputlisting{Makefile.release}
+\inputminted{make}{Makefile.release}
 
 \subsection{Study guide}
 
-\lstinputlisting{Makefile.guide}
+\inputminted{make}{Makefile.guide}
 
 
 \section{Templates for repo files}
 
 \subsection{README}
 
-\lstinputlisting{README.md.template}
+\inputminted{markdown}{README.md.template}
 
 \subsection{CONTRIBUTING}
 
-\lstinputlisting{CONTRIBUTING.md.template}
+\inputminted{markdown}{CONTRIBUTING.md.template}
 
 
 \section{Templates for licenses}
 
 \subsection{Creative Commons}
 
-\lstinputlisting{LICENSE.CC}
+\inputminted{markdown}{LICENSE.CC}
 
 \subsection{MIT}
 
-\lstinputlisting{LICENSE.MIT}
+\inputminted{markdown}{LICENSE.MIT}
 
 \end{document}

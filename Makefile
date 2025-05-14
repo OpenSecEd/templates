@@ -1,6 +1,8 @@
 .PHONY: all
 all: texgen texgen.pdf texgen.tar.gz
 
+LATEXFLAGS+=	--shell-escape
+
 texgen: texgen.sh
 	${LN} -f $^ $@
 
